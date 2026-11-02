@@ -94,7 +94,21 @@ node resume-route.mjs --help
 ```
 
 Зависимости установлены без postinstall: Chromium для PDF на этом шаге не нужен.
-Проверка doctor не создаёт профиль. После подтверждения профиля и резюме:
+Проверка doctor не создаёт профиль.
+
+На Windows после обычного `git clone` ссылки других CLI могут оказаться
+текстовыми заглушками. Для их штатного раскрытия перед полной проверкой:
+
+```powershell
+node --input-type=module -e 'import { materializeSkillEntrypoints } from "./scaffolder/bin/skill-entrypoints.mjs"; console.log(materializeSkillEntrypoints(process.cwd()));'
+```
+
+Helper меняет только известные link-заглушки на канонический skill. Git на такой
+машине покажет шесть локально изменённых alias-файлов; в коммиты форка эти копии
+не включать. Канонический `.agents/skills/career-ops/SKILL.md` не меняется.
+Для Codex используется именно канонический skill.
+
+После подтверждения профиля и резюме:
 
 ```powershell
 Copy-Item config/resume-routes.example.yml config/resume-routes.yml
