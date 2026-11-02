@@ -307,7 +307,10 @@ test("starting the dashboard starts the PDF painter from the repo root and does 
     writeFileSync(join(nextDir, "next.js"), "console.log(JSON.stringify(process.argv.slice(2)));\n");
     writeFileSync(
       join(root, "generate-pdf.mjs"),
-      `import { writeFileSync } from "node:fs";\nwriteFileSync(${JSON.stringify(marker)}, process.pid + "\\n" + process.cwd());\nsetInterval(() => {}, 1e9);\n`,
+      // Record the launch cwd, then release the fixture directory. On Windows
+      // a detached child's cwd handle can outlive its PID after termination;
+      // that is test cleanup, not part of the launch-cwd contract below.
+      `import { writeFileSync } from "node:fs";\nconst launchedCwd = process.cwd();\nprocess.chdir(${JSON.stringify(tmpdir())});\nwriteFileSync(${JSON.stringify(marker)}, process.pid + "\\n" + launchedCwd);\nsetInterval(() => {}, 1e9);\n`,
     );
     const started = Date.now();
     const result = spawnSync(process.execPath, [join(web, "server.mjs"), "dev"], {

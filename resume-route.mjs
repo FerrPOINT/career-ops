@@ -2,9 +2,9 @@
 // Routing hints only: these signals say which angle to review, never prove experience.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { load } from 'js-yaml';
 import { getCareerOpsRoot } from './path-resolver.mjs';
+import { isMainModule } from './lib/is-main-module.mjs';
 
 export function selectResumeRoutes(text, routes) {
   if (!Array.isArray(routes) || routes.some((route) => !route?.id || !route?.label || !Array.isArray(route?.signals) || !route.signals.length || route.signals.some((signal) => typeof signal !== 'string' || !signal.trim()))) {
@@ -38,6 +38,6 @@ export function main(args = process.argv.slice(2)) {
   console.log(JSON.stringify(selectResumeRoutes(readFileSync(options['--jd'], 'utf8'), config?.routes), null, 2));
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+if (isMainModule(import.meta.url)) {
   try { main(); } catch (error) { console.error(`resume-route: ${error.message}`); process.exitCode = 1; }
 }
