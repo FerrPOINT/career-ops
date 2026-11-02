@@ -1,0 +1,21 @@
+# Direction hints, not candidate facts. Copy to the gitignored resume-routes.yml.
+# Review current resume names on HH before personalizing labels.
+routes:
+  - id: java-backend
+    label: Senior Java Backend
+    signals: [Java, JVM, Spring, Spring Boot, Hibernate]
+  - id: architecture
+    label: Hands-on Architecture / Tech Lead
+    signals: [архитектор, architect, архитектура, Tech Lead, технический лидер]
+  - id: fullstack
+    label: Fullstack / Product Engineering
+    signals: [fullstack, full-stack, full stack, React, Next.js, Node.js, TypeScript]
+  - id: agentic
+    label: Agentic / AI Engineering
+    signals: [LLM, RAG, AI agents, ИИ-агенты, LLMOps, agentic]
+  - id: leadership
+    label: Hands-on CTO / Head of Engineering
+    signals: [CTO, технический директор, Head of Engineering, руководитель разработки]
+  - id: go-transition
+    label: Backend transition to Go
+    signals: [Go, Golang]

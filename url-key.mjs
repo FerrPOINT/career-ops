@@ -100,6 +100,9 @@ const AGGREGATOR_SUPPLEMENT = [
   'nodesk.co',          // multi-employer remote board, board-controlled URLs; providers/nodesk.mjs
   'themuse.com',        // multi-employer board, board-controlled URLs; providers/themuse.mjs
   'echojobs.io',        // multi-employer board; providers/echojobs.mjs is retired (#2976), so historical rows only
+  // Regional primary boards: their posting URLs are not employer-controlled.
+  'hh.ru', 'hh.kz', 'hh.uz', 'hh1.az', 'rabota.by', 'headhunter.ge', 'headhunter.kg',
+  'career.habr.com', 'geekjob.ru', 'getmatch.ru', 'dou.ua', 'djinni.co',
 ];
 
 /** Path to the shared scraper list, overridable the same way scan.mjs allows. */
@@ -196,6 +199,12 @@ function foldHostname(host) {
 // Extractors are keyed on the DOMAIN, never on the path: `/jobs/view/{id}` is
 // also Workable's employer-board shape, where it means something else.
 const AGGREGATOR_POSTING_ID = {
+  ...Object.fromEntries(['hh.ru', 'hh.kz', 'hh.uz', 'hh1.az', 'rabota.by', 'headhunter.ge', 'headhunter.kg']
+    .map((domain) => [domain, (u) => u.pathname.match(/^\/vacancy\/(\d+)\/?$/)?.[1] || null])),
+  'career.habr.com': (u) => u.pathname.match(/^\/vacancies\/(\d+)\/?$/)?.[1] || null,
+  'geekjob.ru': (u) => u.pathname.match(/^\/vacancy\/([a-f\d]+)\/?$/i)?.[1]?.toLowerCase() || null,
+  'dou.ua': (u) => u.pathname.match(/^\/companies\/[^/]+\/vacancies\/(\d+)\/?$/)?.[1] || null,
+  'djinni.co': (u) => u.pathname.match(/^\/jobs\/(\d+)(?:-[^/]*)?\/?$/)?.[1] || null,
   // The shapes and the /comm/ email link are documented in lib/linkedin-url.mjs.
   // parseAggregator has already matched the folded host, so only the path is read.
   'linkedin.com': linkedInPathJobId,

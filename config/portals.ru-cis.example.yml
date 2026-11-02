@@ -1,0 +1,56 @@
+# Start small. Copy approved entries into your user-owned portals.yml.
+# Scans are discovery, not confirmation that a vacancy is suitable or open.
+title_filter:
+  positive: [Java, JVM, backend, бэкенд, architect, архитектор, fullstack, full-stack, TypeScript, LLM, agentic, AI Engineer, Tech Lead, CTO, Head of Engineering, руководитель разработки, Go, Golang]
+  negative: [стажёр, стажер, internship, intern, junior]
+max_posting_age_days: 3
+job_boards:
+  - name: Habr Java remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: Java, only_remote: true }
+  - name: Habr architecture remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: architect, only_remote: true }
+  - name: Habr fullstack remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: fullstack, only_remote: true }
+  - name: Habr LLM remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: LLM, only_remote: true }
+  - name: Habr hands-on leadership remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: CTO, only_remote: true }
+  - name: Habr Go transition remote
+    provider: habr-career
+    max_pages: 5
+    habr: { query: Golang, only_remote: true }
+  - name: GeekJob remote
+    provider: geekjob
+    max_pages: 15
+    geekjob: { only_remote: true }
+  # Optional regional expansion: enable only when employment geography fits.
+  - name: DOU Java recent RSS
+    provider: dou
+    enabled: false
+    category: Java
+  - name: Djinni Java recent RSS
+    provider: djinni
+    enabled: false
+    primary_keyword: Java
+    djinni: { fetchDetails: true, detailLimit: 25 }
+  # The public API returned 403 during qualification. No HTML fallback.
+  - name: HeadHunter Java
+    provider: hh
+    enabled: false
+    max_pages: 5
+    hh: { query: Java, site: hh.ru, only_remote: true, period_days: 3 }
+  # Same API supports hh.kz, hh.uz, rabota.by, hh1.az, headhunter.ge, headhunter.kg.
+  - name: GetMatch public HTML
+    provider: getmatch
+    enabled: false
+    getmatch: { query: Java }

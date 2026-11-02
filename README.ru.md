@@ -2,6 +2,11 @@
 
 <p align="center">ИИ-агент с открытым кодом для поиска работы.</p>
 
+> **Дополнения нашего форка:** [рабочий процесс РФ и соседних рынков](docs/FORK_WORKFLOW_RU.md),
+> [источники и ограничения доступа](docs/FORK_SOURCES.md). Хабр, GeekJob,
+> DOU/Djinni подключены к общему сканеру; hh.ru и GetMatch имеют явные
+> ограничения доступности. Начните с настройки проверенного профиля.
+
 <p align="center">
   <a href="README.md">English</a> |
   <a href="README.es.md">Español</a> |

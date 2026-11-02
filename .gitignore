@@ -292,3 +292,6 @@ data/interview-prep/
 .next/
 web/.next/
 web/out/
+
+# Private routing configuration; the example contains no candidate facts.
+/config/resume-routes.yml
