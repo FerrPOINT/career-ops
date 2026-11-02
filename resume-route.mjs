@@ -2,7 +2,7 @@
 // Routing hints only: these signals say which angle to review, never prove experience.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { load } from 'js-yaml';
+import { loadYaml } from './lib/yaml-document.mjs';
 import { getCareerOpsRoot } from './path-resolver.mjs';
 import { isMainModule } from './lib/is-main-module.mjs';
 
@@ -34,7 +34,7 @@ export function main(args = process.argv.slice(2)) {
   }
   if (!options['--jd']) throw new Error('--jd <local-text-file> is required; URLs are not fetched');
   const routesPath = options['--routes'] || resolve(getCareerOpsRoot(), 'config/resume-routes.yml');
-  const config = load(readFileSync(routesPath, 'utf8'));
+  const config = loadYaml(readFileSync(routesPath, 'utf8'));
   console.log(JSON.stringify(selectResumeRoutes(readFileSync(options['--jd'], 'utf8'), config?.routes), null, 2));
 }
 
